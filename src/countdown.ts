@@ -35,12 +35,7 @@ function processTaskRemaining({remaining, unit}: TaskParams, ticktockStep: numbe
 
 export default function countdown(ticktockStep = 1000) {
     let taskQueue: Array<QueueItem> = []
-    const intervalID = setInterval(() => {
-        taskQueue.map((t) => {
-            t.taskParams = processTaskRemaining(t.taskParams, ticktockStep)
-            t.task(t.taskParams.remaining)
-        })
-    }, ticktockStep)
+    let intervalID: null | number = null
     const clearCountdown = (taskName: string | Array<string>) => {
         if (taskName) {
             taskQueue = taskQueue.filter((t) => {
@@ -51,12 +46,26 @@ export default function countdown(ticktockStep = 1000) {
                     return taskName.indexOf(t.taskName) == -1
                 }
             })
+            if (taskQueue.length == 0) {
+                clearInterval(intervalID)
+                intervalID = null
+            }
         } else {
             clearInterval(intervalID)
+            intervalID = null
         }
     }
     const addCountdown = (taskName: string, taskParams: TaskParams, task: (remaining: number) => void) => {
+        // 已存在同名任务
         if (taskQueue.filter((t) => t.taskName == taskName).length) return
+        if (intervalID == null) {
+            intervalID = setInterval(() => {
+                taskQueue.map((t) => {
+                    t.taskParams = processTaskRemaining(t.taskParams, ticktockStep)
+                    t.task(t.taskParams.remaining)
+                })
+            }, ticktockStep)
+        }
         taskQueue.push({
             taskName,
             taskParams,
