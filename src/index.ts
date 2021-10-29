@@ -1,2 +1,2 @@
-import countdown from "./countdown";
-import formatRemaining from './utils/formatRemaining'
+export {default} from "./countdown";
+export  { default as formatRemaining } from './utils/formatRemaining'

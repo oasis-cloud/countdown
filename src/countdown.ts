@@ -11,8 +11,15 @@ interface QueueItem {
     task: (remaining: number) => void
 }
 
+type AddCountdown = (taskName: string, taskParams: TaskParams, task: (remaining: number) => void) => void
 
-function processTaskRemaining({remaining, unit}: TaskParams, ticktockStep: number) {
+type ClearCountdown = (taskName: string | Array<string>) => void
+
+
+function processTaskRemaining({
+                                  remaining,
+                                  unit
+                              }: TaskParams, ticktockStep: number) {
     let reduce = ticktockStep
     switch (unit) {
         case 'ms':
@@ -33,10 +40,10 @@ function processTaskRemaining({remaining, unit}: TaskParams, ticktockStep: numbe
     return {remaining: remaining - reduce, unit}
 }
 
-export default function countdown(ticktockStep = 1000) {
+export default function countdown(ticktockStep = 1000):[ClearCountdown, AddCountdown] {
     let taskQueue: Array<QueueItem> = []
-    let intervalID: null | number = null
-    const clearCountdown = (taskName: string | Array<string>) => {
+    let intervalID: any = null
+    const clearCountdown:ClearCountdown = (taskName) => {
         if (taskName) {
             taskQueue = taskQueue.filter((t) => {
                 if (typeof taskName === 'string') {
@@ -55,7 +62,7 @@ export default function countdown(ticktockStep = 1000) {
             intervalID = null
         }
     }
-    const addCountdown = (taskName: string, taskParams: TaskParams, task: (remaining: number) => void) => {
+    const addCountdown:AddCountdown = (taskName, taskParams ,task) => {
         // 已存在同名任务
         if (taskQueue.filter((t) => t.taskName == taskName).length) return
         if (intervalID == null) {
