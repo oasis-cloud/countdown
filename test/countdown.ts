@@ -1,4 +1,3 @@
-import {equal} from "assert";
 import countdown from "../src/index";
 import assert = require("assert");
 
