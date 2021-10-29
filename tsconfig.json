@@ -2,15 +2,16 @@
   "compilerOptions": {
     "target": "ES3",
     "lib": ["ESNext", "DOM"],
-    "outDir": "ts-dist",
-    "module": "umd",
+    "outDir": "dist",
+    "module": "ESNext",
     "declaration": true,
     "declarationDir": "./types",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "removeComments": true,
     "preserveConstEnums": true,
-    "sourceMap": true
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": false
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "exclude": ["node_modules", "**/*.spec.ts", "test", "lib"]
 }
