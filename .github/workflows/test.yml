@@ -15,6 +15,7 @@ jobs:
   test:
     runs-on: ubuntu-test
     steps:
+      - name: Checkout
       - uses: actions/checkout@v2
 
       - name: Diff files
