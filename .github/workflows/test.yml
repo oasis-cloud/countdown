@@ -20,9 +20,9 @@ jobs:
 
       - name: Diff files
         run: |
-          echo "test echo $GITHUB_BASE_REF:$GITHUB_BASE_REF"
-          git fetch origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
-          git fetch origin $GITHUB_HEAD_REF:$GITHUB_HEAD_REF
-          git checkout $GITHUB_HEAD_REF
-          DIFF=$(git diff --name-only $GITHUB_BASE_REF..$GITHUB_HEAD_REF)
+          echo "echo env ${{ env.GITHUB_BASE_REF }} ${{ env.GITHUB_HEAD_REF }} "
+          git fetch origin ${{ env.GITHUB_BASE_REF }}:${{ env.GITHUB_BASE_REF }}
+          git fetch origin ${{ env.GITHUB_HEAD_REF }}:${{ env.GITHUB_HEAD_REF }}
+          git checkout ${{ env.GITHUB_HEAD_REF }}
+#          DIFF=$(git diff --name-only ${{ env.GITHUB_BASE_REF }}..${{ env.GITHUB_HEAD_REF }})
           echo "$DIFF"
