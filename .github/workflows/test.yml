@@ -26,12 +26,12 @@ jobs:
             
             echo "PR files: $files_changed"
 
-      - name: Get PR diff
-        run: |
-          base_branch="${{ github.event.pull_request.base.ref }}"
-          head_branch="${{ github.event.pull_request.head.ref }}"
-          files_changed=$(git diff --name-only $base_branch..$head_branch)
-          echo "PR files: $files_changed"
+#      - name: Get PR diff
+#        run: |
+#          base_branch="${{ github.event.pull_request.base.ref }}"
+#          head_branch="${{ github.event.pull_request.head.ref }}"
+#          files_changed=$(git diff --name-only $base_branch..$head_branch)
+#          echo "PR files: $files_changed"
 
 
       - name: Diff files
