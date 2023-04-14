@@ -19,9 +19,9 @@ jobs:
 
       - name: Get PR info
         run: |
-          pr_number=$(echo "$github.event.head_commit.message" | split('#')[1])
-          files_url="https://api.github.com/repos/$github.repository/pulls/$pr_number/files"
-          files_response=$(curl -sSL -H "Authorization: token $secrets.GITHUB_TOKEN" $files_url)
+          pr_number=12
+          files_url="https://api.github.com/repos/${{ github.repository }}/pulls/$pr_number/files"
+          files_response=$(curl -sSL -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" $files_url)
           files_changed=$(echo "$files_response" | jq -r '.[].filename')
           echo "PR files: $files_changed"
 
