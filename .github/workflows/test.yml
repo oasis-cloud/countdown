@@ -25,14 +25,16 @@ jobs:
           files_response=$(curl -sSL -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" $files_url)
           files_changed=$(echo "$files_response" | jq -r '.[].filename')
           echo "PR files: $files_changed"
+          component=$(echo "$files_changed" |  grep -E -i 'src\/packages\/([a-z]+)(\/[a-z_\.]*)*' | sed -E 's/src\/packages\/([a-z]+)(\/[a-z_\.]*)*/\1/i' | awk 'END{print}')
+          npm test -- $component
 
-      - name: Diff files
-        run: |
-          echo "echo env1 $GITHUB_BASE_REF $GITHUB_HEAD_REF"
-          git fetch origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
-          git fetch origin $GITHUB_HEAD_REF:$GITHUB_HEAD_REF
-          git checkout $GITHUB_HEAD_REF
-          DIFF=$(git diff --name-only $GITHUB_BASE_REF..$GITHUB_HEAD_REF)
-          COMPONENT=$(echo "$DIFF" |  grep -E -i 'src\/packages\/([a-z]+)(\/[a-z_\.]*)*' | sed -E 's/src\/packages\/([a-z]+)(\/[a-z_\.]*)*/\1/i' | awk 'END{print}')
-          npm test -- $COMPONENT
+#      - name: Diff files
+#        run: |
+#          echo "echo env1 $GITHUB_BASE_REF $GITHUB_HEAD_REF"
+#          git fetch origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
+#          git fetch origin $GITHUB_HEAD_REF:$GITHUB_HEAD_REF
+#          git checkout $GITHUB_HEAD_REF
+#          DIFF=$(git diff --name-only $GITHUB_BASE_REF..$GITHUB_HEAD_REF)
+#          COMPONENT=$(echo "$DIFF" |  grep -E -i 'src\/packages\/([a-z]+)(\/[a-z_\.]*)*' | sed -E 's/src\/packages\/([a-z]+)(\/[a-z_\.]*)*/\1/i' | awk 'END{print}')
+#          npm test -- $COMPONENT
 
