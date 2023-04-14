@@ -24,4 +24,7 @@ jobs:
           git fetch origin $GITHUB_HEAD_REF:$GITHUB_HEAD_REF
           git checkout $GITHUB_HEAD_REF
           DIFF=$(git diff --name-only $GITHUB_BASE_REF..$GITHUB_HEAD_REF)
-          echo "$DIFF"
+          COMPONENT=$(echo "$DIFF" |  grep -E -i 'src\/packages\/([a-z]+)(\/[a-z_\.]*)*' | sed -E 's/src\/packages\/([a-z]+)(\/[a-z_\.]*)*/\1/i' | awk 'END{print}')
+          npm test -- $COMPONENT
+#          COMPONENT=$(git log -n 1 --dirstat=files --oneline |  grep -E -i 'src\/packages\/([a-z]+)(\/[a-z_\.]*)*' | sed -E 's/src\/packages\/([a-z]+)(\/[a-z_\.]*)*/\1/i' | awk 'END{print}')
+#          echo "component=${COMPONENT}" >> $GITHUB_ENV
