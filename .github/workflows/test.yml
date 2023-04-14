@@ -24,7 +24,7 @@ jobs:
           head_branch="${{ github.event.pull_request.head.ref }}"
           
           # 获取差异文件列表
-          files_changed=$(git diff --name-only $base_branch...$head_branch)
+          files_changed=$(git diff --name-only $base_branch..$head_branch)
           echo "PR files: $files_changed"
 
 
