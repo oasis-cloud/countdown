@@ -1,19 +1,19 @@
 {
-  "name": "countdown",
+  "name": "@oasis-cloud/countdown",
   "version": "1.0.0",
-  "description": "countdown",
+  "description": "The time countdown tool provides a countdown queue function, avoids opening multiple timers, and supports clearing a single countdown task.More efficient countdown.",
   "main": "lib/index.umd.js",
-  "types": "types/index.d.ts",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha",
-    "build": "tsc && rollup -c rollup.config.ts --configPlugin typescript"
+    "build": "rollup -c rollup.config.ts --configPlugin typescript"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oasis-cloud/countdown.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["countdown"],
+  "author": "oasis-cloud",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/oasis-cloud/countdown/issues"

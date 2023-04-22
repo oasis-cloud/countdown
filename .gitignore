@@ -4,3 +4,4 @@ ts-dist/**
 package-lock.json
 dist/**
 types/**
+lib/**
