@@ -8,6 +8,9 @@
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha",
     "build": "rollup -c rollup.config.ts --configPlugin typescript"
   },
+  "files": [
+    "lib"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/oasis-cloud/countdown.git"
