@@ -3,6 +3,11 @@
 > The time countdown tool provides a countdown queue function, avoids opening multiple timers, and supports clearing a single countdown task.
 > More efficient countdown.
 
+## Install
+```shell
+npm install @oasis-cloud/countdown
+```
+
 ## Demo
 
 - Add countdown task
@@ -29,8 +34,8 @@ addCountdown(taskName, taskParams, task)
 - Clear countdown
 
 ```javascript
-// 仅仅清除 skill 任务
+// Only clears skill tasks
 clearCountdown('skill')
-// 清除全部任务
+// clear all tasks
 clearCountdown()
 ```
